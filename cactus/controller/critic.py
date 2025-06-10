@@ -120,9 +120,9 @@ class QMIXCritic(VDNCritic):
 
     def load_model_weights(self, path):
         super(QMIXCritic, self).load_model_weights(path)
-        critic_path = join(path, MIXER_NET_FILENAME)
-        self.mixing_network.load_state_dict(torch.load(critic_path, map_location=self.device))
-        self.mixing_network.eval()
+        # critic_path = join(path, MIXER_NET_FILENAME)
+        # self.mixing_network.load_state_dict(torch.load(critic_path, map_location=self.device))
+        # self.mixing_network.eval()
 
     def get_parameter_count(self):
         parameter_count = super(QMIXCritic, self).get_parameter_count()
