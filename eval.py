@@ -7,9 +7,9 @@ import sys
 
 params = {}
 completion_rates_final = []
-filename = sys.argv[1]
-map_size = sys.argv[2]
-density = sys.argv[3]
+filename = "8-agents_DeviationConfidence_VDN-False_RewardSharing-False_2024-04-03-15-36-32"
+map_size = 40
+density = 0.1
 for nr_agents in [4, 8, 16, 32, 64, 128, 256]:
     completion_rates = []
     for map_id in range(100):

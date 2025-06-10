@@ -1,4 +1,8 @@
 from os.path import join
+from pathlib import Path
+
+import pygame
+
 from cactus.constants import *
 import cactus.curriculum as curr
 import cactus.data as data
@@ -13,6 +17,9 @@ def run_episode(envs, controller, params, training_mode=True, render_mode=False,
     done = False
     time_step = 0
     observations = env.reset()
+    env.render()
+    screen_copy = env.viewer.screen.copy()
+
     vertex_collisions = env.float_zeros(env.nr_agents)
     edge_collisions = env.float_zeros(env.nr_agents)
     info = {ENV_COMPLETION_RATE : 0.0}
@@ -28,6 +35,16 @@ def run_episode(envs, controller, params, training_mode=True, render_mode=False,
         if render_mode:
             env.render()
         observations = next_observations
+
+    if info[ENV_COMPLETION_RATE] != 1:
+        directory = "./problem_scenarios/" + params[MAP_NAME]
+        Path(directory).mkdir(parents=True, exist_ok=True)
+
+        env.render()
+        pygame.image.save(env.viewer.screen, f"{directory}/end_frame.png")
+
+        pygame.image.save(screen_copy, f"{directory}/start_frame.png")
+
     return {
         DISCOUNTED_RETURNS: env.discounted_returns,
         UNDISCOUNTED_RETURNS: env.undiscounted_returns,
